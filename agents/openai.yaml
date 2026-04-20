@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI DWSIM 基础工艺包"
+  short_description: "用 Automation3 和 Python 驱动 DWSIM，完成建模、调优、导出与基础工艺包交付。"
+  default_prompt: "接管 DWSIM，优先复用现有模型，完成可审计的建模、计算、导出和基础工艺包交付。"
