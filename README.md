@@ -68,6 +68,9 @@ This recommendation is based on two sources:
 AI-DWSIM-Skill/
 |-- README.md
 |-- SKILL.md
+|-- AGENTS.md
+|-- CONTRIBUTING.md
+|-- SECURITY.md
 |-- LICENSE
 |-- GITHUB_REPO_SETTINGS.md
 |-- agents/
@@ -76,7 +79,13 @@ AI-DWSIM-Skill/
 |   |-- authority-and-path-selection.md
 |   |-- basic-package-deliverables.md
 |   `-- project-lessons.md
-|-- .gitignore
+|-- scripts/
+|   `-- validate_repo.py
+`-- .github/
+    |-- dependabot.yml
+    |-- pull_request_template.md
+    |-- ISSUE_TEMPLATE/
+    `-- workflows/
 ```
 
 ## Requirements
@@ -99,7 +108,7 @@ Optional but useful:
 ### 1. Clone the repository
 
 ```powershell
-git clone https://github.com/<your-account>/AI-DWSIM-Skill.git
+git clone https://github.com/leoyong1983-spec/AI-DWSIM-Skill.git
 cd AI-DWSIM-Skill
 ```
 
@@ -108,9 +117,16 @@ cd AI-DWSIM-Skill
 Copy the repository contents into a Codex skill folder named `ai-dwsim-basic-package`.
 
 ```powershell
+$source = Get-Location
 $target = "$env:USERPROFILE\\.codex\\skills\\ai-dwsim-basic-package"
 New-Item -ItemType Directory -Force $target | Out-Null
-Copy-Item .\\* $target -Recurse -Force
+Copy-Item `
+  "$source\\README.md", `
+  "$source\\SKILL.md", `
+  "$source\\AGENTS.md", `
+  "$source\\agents", `
+  "$source\\references" `
+  -Destination $target -Recurse -Force
 ```
 
 ### 3. Use it in a real DWSIM task
@@ -150,9 +166,27 @@ Then invoke it in a task such as:
 If you do not use Codex skills directly, you can still reuse:
 
 - `SKILL.md` as the operating playbook
+- `AGENTS.md` as the repository-specific maintenance contract for AI coding agents
 - `references/authority-and-path-selection.md` to choose the correct control lane
 - `references/project-lessons.md` to avoid known failure modes
 - `references/basic-package-deliverables.md` to structure exports and review-stage package outputs
+
+## Maintenance and Validation
+
+This repository includes lightweight open-source maintenance scaffolding:
+
+- `AGENTS.md` for repository-specific AI agent instructions
+- `CONTRIBUTING.md` for contribution scope and review expectations
+- `SECURITY.md` for vulnerability reporting guidance
+- `.github/ISSUE_TEMPLATE/` and `.github/pull_request_template.md` for consistent collaboration
+- `.github/workflows/repo-hygiene.yml` for push, pull request, manual, and daily repository checks
+- `scripts/validate_repo.py` for local repository smoke checks without requiring DWSIM
+
+Run the local validation entry point after repository-facing changes:
+
+```powershell
+py -3 scripts/validate_repo.py
+```
 
 ## Typical Workflow
 
@@ -208,4 +242,4 @@ Python wrapper / orchestration example:
 
 This repository now ships with the MIT license.
 
-Before you publish to GitHub, copy the values from [GITHUB_REPO_SETTINGS.md](GITHUB_REPO_SETTINGS.md) into the repository "About" section.
+If you fork or republish this repository, copy the values from [GITHUB_REPO_SETTINGS.md](GITHUB_REPO_SETTINGS.md) into the repository "About" section.
