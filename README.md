@@ -80,6 +80,7 @@ AI-DWSIM-Skill/
 |   |-- basic-package-deliverables.md
 |   `-- project-lessons.md
 |-- scripts/
+|   |-- validate_repo.ps1
 |   `-- validate_repo.py
 `-- .github/
     |-- dependabot.yml
@@ -180,13 +181,16 @@ This repository includes lightweight open-source maintenance scaffolding:
 - `SECURITY.md` for vulnerability reporting guidance
 - `.github/ISSUE_TEMPLATE/` and `.github/pull_request_template.md` for consistent collaboration
 - `.github/workflows/repo-hygiene.yml` for push, pull request, manual, and daily repository checks
-- `scripts/validate_repo.py` for local repository smoke checks without requiring DWSIM
+- `scripts/validate_repo.ps1` as the Windows-friendly local validation entry point
+- `scripts/validate_repo.py` for the underlying repository smoke checks without requiring DWSIM
 
 Run the local validation entry point after repository-facing changes:
 
 ```powershell
-py -3 scripts/validate_repo.py
+.\scripts\validate_repo.ps1
 ```
+
+The PowerShell wrapper prefers a real Python installation behind `py` or `python` and fails with a clear message if neither is available.
 
 ## Typical Workflow
 

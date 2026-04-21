@@ -27,6 +27,7 @@ REQUIRED_FILES = [
     ".github/ISSUE_TEMPLATE/improvement.yml",
     ".github/ISSUE_TEMPLATE/config.yml",
     ".github/workflows/repo-hygiene.yml",
+    "scripts/validate_repo.ps1",
     "scripts/validate_repo.py",
 ]
 
@@ -111,6 +112,8 @@ def check_readme_content(readme_text: str, errors: list[str]) -> None:
         errors.append("README.md still contains the placeholder clone URL.")
     if "https://github.com/leoyong1983-spec/AI-DWSIM-Skill.git" not in readme_text:
         errors.append("README.md is missing the canonical repository clone URL.")
+    if "validate_repo.ps1" not in readme_text:
+        errors.append("README.md should document the preferred PowerShell validation entry point.")
     if "validate_repo.py" not in readme_text:
         errors.append("README.md should document the repository validation command.")
 

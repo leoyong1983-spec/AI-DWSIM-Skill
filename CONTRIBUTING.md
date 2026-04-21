@@ -30,10 +30,10 @@ This repository packages a reusable Codex skill and workflow for auditable DWSIM
 Run the repository smoke test before submitting a PR:
 
 ```powershell
-py -3 scripts/validate_repo.py
+.\scripts\validate_repo.ps1
 ```
 
-If you could not run a check because the environment lacks DWSIM, .NET automation, or another required tool, say so clearly in the PR.
+If you could not run a check because the environment lacks Python, DWSIM, .NET automation, or another required tool, say so clearly in the PR.
 
 ## Pull Request Expectations
 

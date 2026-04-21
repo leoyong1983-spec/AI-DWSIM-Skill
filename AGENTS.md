@@ -9,6 +9,7 @@ Keep this repository installable, reviewable, and trustworthy as an AI-ready DWS
 - `SKILL.md` is the primary skill contract.
 - `references/` contains the domain guardrails that explain control-lane choice, package deliverables, and project lessons.
 - `agents/openai.yaml` contains the Codex-facing UI metadata.
+- `scripts/validate_repo.ps1` is the preferred local validation entry point on Windows.
 - `scripts/validate_repo.py` is the lightweight repository smoke test.
 - `.github/` contains collaboration, dependency, and CI hygiene for the open-source repo.
 
@@ -42,7 +43,7 @@ Use external knowledge in this order:
 After repository-facing changes, run:
 
 ```powershell
-py -3 scripts/validate_repo.py
+.\scripts\validate_repo.ps1
 ```
 
 If you add or change GitHub workflows, keep them dependency-light and explain any schedule or timezone assumptions in the workflow or PR description.
