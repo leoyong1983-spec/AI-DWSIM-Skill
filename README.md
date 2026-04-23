@@ -115,7 +115,7 @@ cd AI-DWSIM-Skill
 
 ### 2. Install it as a Codex skill
 
-Copy the repository contents into a Codex skill folder named `ai-dwsim-basic-package`.
+Copy the runtime skill files into a Codex skill folder named `ai-dwsim-basic-package`.
 
 ```powershell
 $source = Get-Location
@@ -124,11 +124,12 @@ New-Item -ItemType Directory -Force $target | Out-Null
 Copy-Item `
   "$source\\README.md", `
   "$source\\SKILL.md", `
-  "$source\\AGENTS.md", `
   "$source\\agents", `
   "$source\\references" `
   -Destination $target -Recurse -Force
 ```
+
+Keep the full repository clone around if you also want the repository maintenance scaffolding such as `AGENTS.md`, local validation scripts, or GitHub workflow files.
 
 ### 3. Use it in a real DWSIM task
 

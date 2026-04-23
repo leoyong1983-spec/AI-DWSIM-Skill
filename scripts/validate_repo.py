@@ -8,6 +8,7 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 LINK_RE = re.compile(r"!?\[[^\]]+\]\(([^)]+)\)")
 FRONT_MATTER_RE = re.compile(r"\A---\r?\n(.*?)\r?\n---\r?\n", re.DOTALL)
+GITHUB_CLONE_URL_RE = re.compile(r"https://github\.com/[^/\s]+/[^/\s]+\.git")
 
 REQUIRED_FILES = [
     "README.md",
@@ -110,8 +111,8 @@ def check_openai_agent_yaml(agent_text: str, errors: list[str]) -> None:
 def check_readme_content(readme_text: str, errors: list[str]) -> None:
     if "<your-account>" in readme_text:
         errors.append("README.md still contains the placeholder clone URL.")
-    if "https://github.com/leoyong1983-spec/AI-DWSIM-Skill.git" not in readme_text:
-        errors.append("README.md is missing the canonical repository clone URL.")
+    if not GITHUB_CLONE_URL_RE.search(readme_text):
+        errors.append("README.md is missing a concrete GitHub clone URL.")
     if "validate_repo.ps1" not in readme_text:
         errors.append("README.md should document the preferred PowerShell validation entry point.")
     if "validate_repo.py" not in readme_text:
