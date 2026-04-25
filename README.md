@@ -36,6 +36,14 @@ The skill is optimized for projects such as:
 - green urea
 - other process packages that need a repeatable DWSIM-to-package workflow
 
+## Relationship to DWSIM Built-in AI Features
+
+DWSIM now documents built-in AI capabilities such as the AI Assistant, AI Insights, AI Design Mode, AI Convergence Enhancer, and AI-assisted parameter optimization.
+
+This repository complements those features rather than replacing them. Use DWSIM's in-app AI as an optional advisory layer for exploration, diagnosis, script drafting, or report interpretation when it is available in the target installation. Keep `Automation3`, proven project runners, and machine-readable exports as the authoritative execution and audit lane for package work.
+
+Some DWSIM AI features are edition-specific, so this skill does not require them for the baseline workflow.
+
 ## Core Design Principles
 
 - Script first, GUI last
