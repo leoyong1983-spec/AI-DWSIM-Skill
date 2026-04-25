@@ -251,6 +251,12 @@ Python wrapper / orchestration example:
 
 - [lf-santos/dwsimopt](https://github.com/lf-santos/dwsimopt)
 
+Related AI process simulation work:
+
+- [Context is all you need: Towards autonomous model-based process design using agentic AI in flowsheet simulations](https://arxiv.org/abs/2603.12813)
+- [AutoChemSchematic AI: Agentic Physics-Aware Automation for Chemical Manufacturing Scale-Up](https://arxiv.org/abs/2505.24584)
+- [Flowsheet Copilot](https://simulate365.com/landing-pages/copilot/)
+
 ## Publishing Note
 
 This repository now ships with the MIT license.
