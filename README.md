@@ -36,6 +36,14 @@ The skill is optimized for projects such as:
 - green urea
 - other process packages that need a repeatable DWSIM-to-package workflow
 
+## Relationship to DWSIM Built-in AI Features
+
+DWSIM now documents built-in AI capabilities such as the AI Assistant, AI Insights, AI Design Mode, AI Convergence Enhancer, and AI-assisted parameter optimization.
+
+This repository complements those features rather than replacing them. Use DWSIM's in-app AI as an optional advisory layer for exploration, diagnosis, script drafting, or report interpretation when it is available in the target installation. Keep `Automation3`, proven project runners, and machine-readable exports as the authoritative execution and audit lane for package work.
+
+Some DWSIM AI features are edition-specific, so this skill does not require them for the baseline workflow.
+
 ## Core Design Principles
 
 - Script first, GUI last
@@ -68,6 +76,9 @@ This recommendation is based on two sources:
 AI-DWSIM-Skill/
 |-- README.md
 |-- SKILL.md
+|-- AGENTS.md
+|-- CONTRIBUTING.md
+|-- SECURITY.md
 |-- LICENSE
 |-- GITHUB_REPO_SETTINGS.md
 |-- agents/
@@ -76,7 +87,14 @@ AI-DWSIM-Skill/
 |   |-- authority-and-path-selection.md
 |   |-- basic-package-deliverables.md
 |   `-- project-lessons.md
-|-- .gitignore
+|-- scripts/
+|   |-- validate_repo.ps1
+|   `-- validate_repo.py
+`-- .github/
+    |-- dependabot.yml
+    |-- pull_request_template.md
+    |-- ISSUE_TEMPLATE/
+    `-- workflows/
 ```
 
 ## Requirements
@@ -99,19 +117,27 @@ Optional but useful:
 ### 1. Clone the repository
 
 ```powershell
-git clone https://github.com/<your-account>/AI-DWSIM-Skill.git
+git clone https://github.com/leoyong1983-spec/AI-DWSIM-Skill.git
 cd AI-DWSIM-Skill
 ```
 
 ### 2. Install it as a Codex skill
 
-Copy the repository contents into a Codex skill folder named `ai-dwsim-basic-package`.
+Copy the runtime skill files into a Codex skill folder named `ai-dwsim-basic-package`.
 
 ```powershell
+$source = Get-Location
 $target = "$env:USERPROFILE\\.codex\\skills\\ai-dwsim-basic-package"
 New-Item -ItemType Directory -Force $target | Out-Null
-Copy-Item .\\* $target -Recurse -Force
+Copy-Item `
+  "$source\\README.md", `
+  "$source\\SKILL.md", `
+  "$source\\agents", `
+  "$source\\references" `
+  -Destination $target -Recurse -Force
 ```
+
+Keep the full repository clone around if you also want the repository maintenance scaffolding such as `AGENTS.md`, local validation scripts, or GitHub workflow files.
 
 ### 3. Use it in a real DWSIM task
 
@@ -150,9 +176,30 @@ Then invoke it in a task such as:
 If you do not use Codex skills directly, you can still reuse:
 
 - `SKILL.md` as the operating playbook
+- `AGENTS.md` as the repository-specific maintenance contract for AI coding agents
 - `references/authority-and-path-selection.md` to choose the correct control lane
 - `references/project-lessons.md` to avoid known failure modes
 - `references/basic-package-deliverables.md` to structure exports and review-stage package outputs
+
+## Maintenance and Validation
+
+This repository includes lightweight open-source maintenance scaffolding:
+
+- `AGENTS.md` for repository-specific AI agent instructions
+- `CONTRIBUTING.md` for contribution scope and review expectations
+- `SECURITY.md` for vulnerability reporting guidance
+- `.github/ISSUE_TEMPLATE/` and `.github/pull_request_template.md` for consistent collaboration
+- `.github/workflows/repo-hygiene.yml` for push, pull request, manual, and daily repository checks
+- `scripts/validate_repo.ps1` as the Windows-friendly local validation entry point
+- `scripts/validate_repo.py` for the underlying repository smoke checks without requiring DWSIM
+
+Run the local validation entry point after repository-facing changes:
+
+```powershell
+.\scripts\validate_repo.ps1
+```
+
+The PowerShell wrapper prefers a real Python installation behind `py` or `python` and fails with a clear message if neither is available.
 
 ## Typical Workflow
 
@@ -204,8 +251,15 @@ Python wrapper / orchestration example:
 
 - [lf-santos/dwsimopt](https://github.com/lf-santos/dwsimopt)
 
+Related AI process simulation work:
+
+- [Context is all you need: Towards autonomous model-based process design using agentic AI in flowsheet simulations](https://arxiv.org/abs/2603.12813)
+- [Sketch2Simulation: Automating Flowsheet Generation via Multi Agent Large Language Models](https://arxiv.org/abs/2603.24629)
+- [AutoChemSchematic AI: Agentic Physics-Aware Automation for Chemical Manufacturing Scale-Up](https://arxiv.org/abs/2505.24584)
+- [Flowsheet Copilot](https://simulate365.com/landing-pages/copilot/)
+
 ## Publishing Note
 
 This repository now ships with the MIT license.
 
-Before you publish to GitHub, copy the values from [GITHUB_REPO_SETTINGS.md](GITHUB_REPO_SETTINGS.md) into the repository "About" section.
+If you fork or republish this repository, copy the values from [GITHUB_REPO_SETTINGS.md](GITHUB_REPO_SETTINGS.md) into the repository "About" section.
