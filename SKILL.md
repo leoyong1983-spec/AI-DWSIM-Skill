@@ -39,16 +39,20 @@ Treat `Automation3` as the authoritative baseline lane because it exposes `Creat
 
 Treat `dwsimopt`-style wrappers as an accelerator layer, not as the primary truth source, because they can simplify Python control but also add environment constraints such as Python version and `pythonnet` compatibility.
 
+Release Automation3 resources in cleanup paths when the API is available, especially after batch runs, failed loads, crash hunting, or repeated smoke tests.
+
 ### 2. Verify the environment before touching the model
 
 Always check:
 
 1. DWSIM installation path
 2. DWSIM version
-3. Automation DLL presence
+3. Resolved `DWSIM.Automation.dll` path
 4. Whether direct `.NET` loading works
 5. Whether COM is registered
 6. Whether existing model files, workcopies, audits, status files, and package exports already exist
+
+When using `Automation3`, log the version reported by `GetVersion()` when the method is available. Do not hard-code one DWSIM major version into runners or handoff instructions.
 
 Do not begin tuning or package compilation before confirming which control lane actually works.
 
