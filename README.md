@@ -254,6 +254,7 @@ Python wrapper / orchestration example:
 Related AI process simulation work:
 
 - [Context is all you need: Towards autonomous model-based process design using agentic AI in flowsheet simulations](https://arxiv.org/abs/2603.12813)
+- [From Text to Simulation: A Multi-Agent LLM Workflow for Automated Chemical Process Design](https://doi.org/10.1609/aaai.v40i35.40215)
 - [Sketch2Simulation: Automating Flowsheet Generation via Multi Agent Large Language Models](https://arxiv.org/abs/2603.24629)
 - [AutoChemSchematic AI: Agentic Physics-Aware Automation for Chemical Manufacturing Scale-Up](https://arxiv.org/abs/2505.24584)
 - [Improving process systems engineering with specialized multi-agent large language models](https://doi.org/10.1016/j.ceja.2026.101141)
