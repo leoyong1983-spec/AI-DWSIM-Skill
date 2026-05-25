@@ -40,6 +40,8 @@ The skill is optimized for projects such as:
 
 DWSIM now documents built-in AI capabilities such as the AI Assistant, AI Insights, AI Design Mode, AI Convergence Enhancer, and AI-assisted parameter optimization.
 
+Recent DWSIM documentation also lists the DWSIM MCP Server and Fluent API as official automation-facing features. Treat these as promising integration lanes to evaluate, not as a replacement for the current verified baseline.
+
 This repository complements those features rather than replacing them. Use DWSIM's in-app AI as an optional advisory layer for exploration, diagnosis, script drafting, or report interpretation when it is available in the target installation. Keep `Automation3`, proven project runners, and machine-readable exports as the authoritative execution and audit lane for package work.
 
 Some DWSIM AI features are edition-specific, so this skill does not require them for the baseline workflow.
