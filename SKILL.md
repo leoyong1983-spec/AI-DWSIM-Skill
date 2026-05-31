@@ -9,6 +9,8 @@ description: "Control DWSIM with auditable, script-first workflows to create, up
 
 Use this skill when the task is not theoretical process discussion but actual DWSIM execution with reproducible artifacts.
 
+When the user explicitly asks for `DWSIM建模复核`, `DWSIM建模验证`, or `DWSIM建模复核/验证`, treat the request as an executable modeling task, not a methodology-only review. First load and calculate an existing model if one is available; if a model must be changed, calculate the changed workcopy before reporting. If no existing model is available or loadable, build and calculate a minimum viable DWSIM model. "No existing model" is only a trigger for the minimum-model path, never a reason to stop at advice, a checklist, or a document-only deliverable.
+
 Prefer scriptable, reviewable, repeatable control lanes:
 
 1. Existing proven project runner
@@ -66,6 +68,8 @@ Use this priority order:
 2. Latest loadable audited workcopy if the task is bounded tuning or pre-freeze improvement
 3. Latest loadable mother model if no frozen or tuned workcopy is available
 4. Minimum once-through model only when no usable model loads
+
+For explicit `DWSIM建模复核/验证` requests, the fourth path is mandatory when no usable model exists. Do not use the absence of an existing model as a reason to avoid modeling.
 
 Never overwrite a frozen baseline.
 
@@ -147,6 +151,7 @@ If the project requires Chinese submission:
 
 - Do not claim a model solved if it did not.
 - Do not mix load failure, object-binding failure, and solver failure.
+- Do not answer explicit DWSIM modeling review or validation requests with methodology, checklists, or deliverable plans only.
 - Do not replace auditable script control with GUI-only actions.
 - Do not overwrite a frozen baseline.
 - Do not reopen free tuning after the project enters package review unless the user explicitly authorizes it.
