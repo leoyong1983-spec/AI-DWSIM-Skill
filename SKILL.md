@@ -23,6 +23,8 @@ Read [references/project-lessons.md](references/project-lessons.md) when resumin
 
 Read [references/basic-package-deliverables.md](references/basic-package-deliverables.md) before generating package outputs.
 
+Read [references/agentic-optimization-and-mcp.md](references/agentic-optimization-and-mcp.md) before using text-to-flowsheet intake, numerical optimization, MCP tools, COM fallbacks, or GUI-assisted simulator control.
+
 ## Workflow
 
 ### 1. Gate the execution path
@@ -38,6 +40,8 @@ Decide the path in this order:
 Treat `Automation3` as the authoritative baseline lane because it exposes `CreateFlowsheet`, `LoadFlowsheet`, `CalculateFlowsheet2`, and `SaveFlowsheet` directly.
 
 Treat `dwsimopt`-style wrappers as an accelerator layer, not as the primary truth source, because they can simplify Python control but also add environment constraints such as Python version and `pythonnet` compatibility.
+
+Treat MCP-style simulator tools as optional interface adapters, not as proof of validation. They must still run against a local simulator, operate on workcopies for mutating actions, and return machine-readable calculation evidence before a result is accepted.
 
 Release Automation3 resources in cleanup paths when the API is available, especially after batch runs, failed loads, crash hunting, or repeated smoke tests.
 
@@ -87,7 +91,8 @@ For bounded tuning:
 2. Change one logical variable family at a time.
 3. Record old value, new value, convergence state, engineering comment, and effect on key KPIs.
 4. Prefer the minimum change that clears the target.
-5. Stop if the task has moved into review or release support mode.
+5. If a numerical optimizer is used, require explicit bounds, objective or residual source, maximum evaluations, rollback workcopy, and DWSIM-native re-run of the accepted result.
+6. Stop if the task has moved into review or release support mode.
 
 ### 5. Export machine-readable outputs first
 
