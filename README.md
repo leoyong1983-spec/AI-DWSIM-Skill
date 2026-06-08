@@ -87,6 +87,7 @@ AI-DWSIM-Skill/
 |   `-- openai.yaml
 |-- references/
 |   |-- authority-and-path-selection.md
+|   |-- agentic-optimization-and-mcp.md
 |   |-- basic-package-deliverables.md
 |   `-- project-lessons.md
 |-- scripts/
@@ -180,6 +181,7 @@ If you do not use Codex skills directly, you can still reuse:
 - `SKILL.md` as the operating playbook
 - `AGENTS.md` as the repository-specific maintenance contract for AI coding agents
 - `references/authority-and-path-selection.md` to choose the correct control lane
+- `references/agentic-optimization-and-mcp.md` to keep text-to-flowsheet, optimizer, MCP, COM, and GUI-assisted workflows bounded
 - `references/project-lessons.md` to avoid known failure modes
 - `references/basic-package-deliverables.md` to structure exports and review-stage package outputs
 
@@ -215,6 +217,19 @@ The PowerShell wrapper prefers a real Python installation behind `py` or `python
 8. Export machine-readable results
 9. Compile review-stage package deliverables
 10. Run release-gate checks before issue
+
+## Agentic Optimization and MCP Boundary
+
+Recent text-to-flowsheet and MCP simulator-agent work is relevant, but it does not replace DWSIM-native validation.
+
+For this repository:
+
+- Text-to-flowsheet outputs are candidate topologies until a DWSIM model loads, calculates, and exports evidence.
+- Local numerical optimizers may be used only inside bounded tuning with explicit variables, bounds, objective or residual source, maximum evaluations, rollback, and a final DWSIM-native re-run.
+- MCP tools are optional interface adapters, not install-time dependencies or proof of validation.
+- COM and GUI control remain fallback/support lanes and must not replace machine-readable solver status and exports.
+
+See [references/agentic-optimization-and-mcp.md](references/agentic-optimization-and-mcp.md) for the detailed guardrails.
 
 ## What Good Output Looks Like
 
@@ -261,6 +276,7 @@ Related AI process simulation work:
 - [Sketch2Simulation: Automating Flowsheet Generation via Multi Agent Large Language Models](https://arxiv.org/abs/2603.24629)
 - [AutoChemSchematic AI: Agentic Physics-Aware Automation for Chemical Manufacturing Scale-Up](https://arxiv.org/abs/2505.24584)
 - [Improving process systems engineering with specialized multi-agent large language models](https://doi.org/10.1016/j.ceja.2026.101141)
+- [Large Language Model Agent for User-friendly Chemical Process Simulations](https://arxiv.org/abs/2601.11650)
 - [Flowsheet Copilot](https://simulate365.com/landing-pages/copilot/)
 
 ## Publishing Note
