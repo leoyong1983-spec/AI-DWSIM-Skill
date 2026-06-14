@@ -1,4 +1,11 @@
 interface:
-  display_name: "AI DWSIM 基础工艺包"
-  short_description: "用 Automation3 和 Python 驱动 DWSIM，完成建模、调优、导出与基础工艺包交付。"
-  default_prompt: "接管 DWSIM，优先复用现有模型，完成可审计的建模、计算、导出和基础工艺包交付。"
+  display_name: "AI DWSIM Basic Package / AI DWSIM 基础工艺包"
+  short_description: "Control DWSIM through Automation3 and Python for auditable modeling, calculation, export, and review-stage package work. 通过 Automation3 和 Python 控制 DWSIM，完成可审计建模、计算、导出与发审阶段工艺包工作。"
+  default_prompt: >
+    Take over DWSIM with a script-first workflow. Reuse existing models first,
+    build a minimum viable model if no usable model exists, calculate through a
+    validated control lane, export machine-readable evidence, and provide
+    Chinese-English bilingual explanations for reader-facing summaries.
+
+    使用脚本优先的方式接管 DWSIM。优先复用已有模型；没有可用模型时建立最小可运行模型；
+    通过已验证控制通道计算；导出机器可读证据；面向读者的摘要和说明默认提供中英双语。

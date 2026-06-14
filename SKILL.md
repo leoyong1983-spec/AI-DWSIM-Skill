@@ -143,14 +143,18 @@ unless the user explicitly changes the project stage and depth.
 
 Detailed sizing, full control philosophy, full safeguards/interlocks, and full datasheets belong to a later phase unless the project explicitly says otherwise.
 
-### 8. Chinese-first delivery rule
+### 8. Chinese-English bilingual delivery rule
 
-If the project requires Chinese submission:
+For user-facing explanations, usage notes, validation summaries, review comments, and handoff notes, provide Chinese and English by default.
 
-1. Use Chinese for reader-facing file names and正文.
-2. Keep necessary English only for paths, file extensions, stream tags, equipment tags, API names, object names, or standard abbreviations.
-3. Add Chinese annotations for reader-visible English terms that remain.
-4. Do not mistake console mojibake for real file corruption; verify with UTF-8 reads or formal extraction tools before editing.
+Use this order:
+
+1. Chinese first, so Chinese engineering readers can review quickly.
+2. English second, so GitHub readers and international collaborators can audit the same meaning.
+3. Keep paths, file extensions, stream tags, equipment tags, API names, object names, command names, JSON keys, and CSV headers unchanged unless the user explicitly asks for localization.
+4. Do not duplicate every machine-readable row in two languages; add bilingual explanations around the data instead.
+5. If the user explicitly requests Chinese-only or English-only output for a specific deliverable, follow that request.
+6. Do not mistake console mojibake for real file corruption; verify with UTF-8 reads or formal extraction tools before editing.
 
 ## Guardrails
 
