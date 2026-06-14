@@ -56,6 +56,7 @@ Some DWSIM AI features are edition-specific, so this skill does not require them
 - Always leave machine-auditable artifacts on disk
 - Separate environment issues, model loading issues, and solver issues
 - Treat release blockers and human decisions as first-class controls
+- Provide Chinese-English bilingual explanations for reader-facing guidance, validation summaries, and handoff notes
 
 ## Recommended Control Stack
 
@@ -217,6 +218,15 @@ The PowerShell wrapper prefers a real Python installation behind `py` or `python
 8. Export machine-readable results
 9. Compile review-stage package deliverables
 10. Run release-gate checks before issue
+
+## Bilingual Explanation Requirement
+
+Reader-facing explanations should be bilingual by default:
+
+- Chinese first, for engineering review and Chinese project delivery.
+- English second, for GitHub readers and international collaborators.
+- Paths, commands, stream tags, equipment tags, API names, JSON keys, and CSV headers should stay unchanged unless a task explicitly asks for localization.
+- Machine-readable outputs do not need every row duplicated in two languages; add bilingual notes, summaries, and assumptions around them.
 
 ## Agentic Optimization and MCP Boundary
 
