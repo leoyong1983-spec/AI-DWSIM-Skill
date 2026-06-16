@@ -286,6 +286,7 @@ Related AI process simulation work:
 - [Sketch2Simulation: Automating Flowsheet Generation via Multi Agent Large Language Models](https://arxiv.org/abs/2603.24629)
 - [AutoChemSchematic AI: Agentic Physics-Aware Automation for Chemical Manufacturing Scale-Up](https://arxiv.org/abs/2505.24584)
 - [Improving process systems engineering with specialized multi-agent large language models](https://doi.org/10.1016/j.ceja.2026.101141)
+- [Large Language Models in Process Systems Engineering: Opportunities, Architectures, and Industrial Deployment Challenges](https://arxiv.org/abs/2606.11589)
 - [Large Language Model Agent for User-friendly Chemical Process Simulations](https://arxiv.org/abs/2601.11650)
 - [Flowsheet Copilot](https://simulate365.com/landing-pages/copilot/)
 
