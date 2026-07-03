@@ -267,6 +267,8 @@ It does not assume:
 Official DWSIM automation source:
 
 - [DanWBR/dwsim](https://github.com/DanWBR/dwsim)
+- [DWSIM Tutorials](https://dwsim.org/tutorials/en/)
+- [DWSIM AI Assistant tutorial](https://dwsim.org/tutorials/en/features/ai-assistant.html)
 
 Example automation files:
 
