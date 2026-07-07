@@ -20,7 +20,7 @@ function Get-UsablePythonCommand {
     throw "Python 3 is required to run repository validation. Install Python from python.org or rely on the GitHub Actions 'Repo Hygiene' workflow."
 }
 
-$command = Get-UsablePythonCommand
+$command = @(Get-UsablePythonCommand)
 $arguments = @()
 if ($command.Length -gt 1) {
     $arguments += $command[1..($command.Length - 1)]
