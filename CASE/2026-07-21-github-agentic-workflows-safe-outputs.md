@@ -29,3 +29,12 @@ English: Record this as a CASE note only. Do not add `gh-aw`, the MCP Gateway, o
 中文：需要文档更新，仅新增本 CASE；不修改代码、依赖、README、SKILL、GitHub workflow 或验证边界。
 
 English: A documentation-only update is warranted: add this CASE note, with no code, dependency, README, SKILL, GitHub workflow, or validation-boundary change.
+## 2026-07-22 Stable Release Update / 稳定版补充
+
+- GitHub Agentic Workflows v0.82.14: https://github.com/github/gh-aw/releases/tag/v0.82.14
+
+中文：v0.82.14 是稳定版，并补充了几项与本项目自动维护链路直接相关的防护：慢速运行器可正确传递工具启动超时，受限运行器中的 Git safe.directory 信任可传递给 safe-output 处理器，pull_request_target 工作流默认不再检出不可信代码，并扩大了智能体工作流的自动评测覆盖。这些变化提高了自动创建 CASE、分支和 PR 时的稳定性与供应链安全性，但仍然只是 GitHub 维护基础设施的相邻证据，不构成 DWSIM 运行验证。
+
+English: v0.82.14 is a stable release with several safeguards directly relevant to this project's automated maintenance path: tool startup timeouts now propagate correctly on slow runners, Git safe.directory trust can reach the safe-output processor on restrictive runners, pull_request_target workflows no longer check out untrusted code by default, and evaluation coverage has expanded across agentic workflows. These changes improve the reliability and supply-chain safety of automated CASE, branch, and PR creation, but remain adjacent GitHub-maintenance evidence rather than DWSIM runtime validation.
+
+Recommended action / 建议：当前继续只记录，不安装 gh-aw。若未来迁移心跳，应固定稳定版本，显式设置启动超时，保持 pull_request_target 无检出默认值，对写操作使用受控 safe-output，并为 CASE 生成、分支创建和 PR 更新建立回归评测。
