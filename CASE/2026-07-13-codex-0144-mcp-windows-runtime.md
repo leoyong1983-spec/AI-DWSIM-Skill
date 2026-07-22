@@ -30,3 +30,13 @@ English: Record this as a CASE note only. Do not make the Codex managed runtime,
 中文：需要新增 CASE 笔记。无需代码、README、SKILL、依赖或 CI 变更。
 
 English: CASE note warranted. No code, README, SKILL, dependency, or CI change is warranted.
+## 2026-07-23 Codex 0.145.0 Stable Update / 稳定版补充
+
+- OpenAI Codex 0.145.0: https://github.com/openai/codex/releases/tag/rust-v0.145.0
+- Evidence grade / 证据等级：B+。OpenAI 官方稳定版发布，可直接支持维护运行时判断；但不属于 DWSIM 原生计算验证。
+
+中文：0.145.0 修复了慢速或冲突的 MCP 启动与认证流程，包括启动超时、非阻塞 OAuth 发现、凭据刷新串行化和工具目录安全复用；同时改进 Windows 原生执行服务器沙箱、网络代理强制、隐藏辅助控制台和 hook 命令引用。它还加强了危险删除检测、完整访问确认和审批拒绝原因保留。这些变化能降低本项目心跳在 Windows 上调用 MCP、执行校验和整理远程提交时的挂起、弹窗干扰与越权风险。
+
+English: Codex 0.145.0 fixes slow or conflicting MCP startup and authentication through startup timeouts, non-blocking OAuth discovery, serialized credential refreshes, and safe tool-catalog reuse. It also improves Windows native exec-server sandboxing, network-proxy enforcement, hidden helper consoles, and hook-command quoting, while strengthening destructive-command detection, full-access confirmation, and approval-rejection provenance. These changes reduce hangs, visible helper-window interference, and permission ambiguity when this project's heartbeat invokes MCP tools, validates on Windows, or prepares remote repository updates.
+
+Recommended action / 建议：记录并优先使用稳定版，不跟随 0.146.0 alpha 预发布。无需修改 DWSIM 控制逻辑或增加依赖；维护脚本继续保留明确超时、最小权限、可审计审批原因和 PowerShell 验证入口。DWSIM 运行成功仍必须由真实 DWSIM 环境及原生计算结果证明。
