@@ -38,3 +38,13 @@ English: A documentation-only update is warranted: add this CASE note, with no c
 English: v0.82.14 is a stable release with several safeguards directly relevant to this project's automated maintenance path: tool startup timeouts now propagate correctly on slow runners, Git safe.directory trust can reach the safe-output processor on restrictive runners, pull_request_target workflows no longer check out untrusted code by default, and evaluation coverage has expanded across agentic workflows. These changes improve the reliability and supply-chain safety of automated CASE, branch, and PR creation, but remain adjacent GitHub-maintenance evidence rather than DWSIM runtime validation.
 
 Recommended action / 建议：当前继续只记录，不安装 gh-aw。若未来迁移心跳，应固定稳定版本，显式设置启动超时，保持 pull_request_target 无检出默认值，对写操作使用受控 safe-output，并为 CASE 生成、分支创建和 PR 更新建立回归评测。
+## 2026-07-24 GitHub Agentic Workflows 0.83.1 Stable Update / 稳定版补充
+
+- Official release / 官方发布：https://github.com/github/gh-aw/releases/tag/v0.83.1
+- Evidence grade / 证据等级：B+。GitHub 官方稳定版，可支持自动维护安全设计；属于 DWSIM 项目的相邻基础设施证据。
+
+中文：0.83.1 把 Grype 容器漏洞扫描、Syft SBOM 生成、Grant 许可证审计和 yamllint 静态检查加入编译链，并升级防火墙以清除关键 CVE。它还修复权限简写丢失、push 事件启动重试缺失和 safe-output PR 审查锚点异常。对本项目未来迁移托管心跳具有较高参考价值，尤其是依赖供应链、许可证合规、权限保持和失败可诊断性。
+
+English: Version 0.83.1 adds Grype container vulnerability scanning, Syft SBOM generation, Grant license auditing, and yamllint static validation to the compile pipeline, and upgrades the firewall to clear a critical CVE. It also fixes lost permission shorthands, missing startup retries on push events, and fragile safe-output PR review anchors. These are valuable precedents for a future hosted heartbeat, especially for supply-chain security, license compliance, permission preservation, and diagnosable failures.
+
+Recommended action / 建议：记录但不安装 gh-aw，不把容器扫描工具引入当前轻量仓库。若未来正式迁移心跳，可在独立 PR 中评估固定稳定版本、SBOM/许可证检查和最小权限编译链；在此之前继续使用现有 Repo Hygiene 校验和人工可审查 PR。
