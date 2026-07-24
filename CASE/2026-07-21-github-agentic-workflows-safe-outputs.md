@@ -48,3 +48,13 @@ Recommended action / 建议：当前继续只记录，不安装 gh-aw。若未�
 English: Version 0.83.1 adds Grype container vulnerability scanning, Syft SBOM generation, Grant license auditing, and yamllint static validation to the compile pipeline, and upgrades the firewall to clear a critical CVE. It also fixes lost permission shorthands, missing startup retries on push events, and fragile safe-output PR review anchors. These are valuable precedents for a future hosted heartbeat, especially for supply-chain security, license compliance, permission preservation, and diagnosable failures.
 
 Recommended action / 建议：记录但不安装 gh-aw，不把容器扫描工具引入当前轻量仓库。若未来正式迁移心跳，可在独立 PR 中评估固定稳定版本、SBOM/许可证检查和最小权限编译链；在此之前继续使用现有 Repo Hygiene 校验和人工可审查 PR。
+## 2026-07-25 GitHub Issue Agent Controls / GitHub Issue 智能体控制补充
+
+- Official changelog / 官方公告：https://github.blog/changelog/2026-07-23-agent-automation-controls-in-github-issues-in-public-preview/
+- Evidence grade / 证据等级：B+。GitHub 官方公开预览说明，可直接约束维护工作流设计；属于仓库维护基础设施的相邻证据。
+
+中文：GitHub Issues 的智能体操作现在可附带置信度、理由和待人工接受或拒绝的建议，支持标签、字段、类型、关闭和指派等操作。最重要的边界是：GitHub 明确说明这些审批只是工作流便利，不是服务端安全控制；拥有写权限的智能体仍可绕过建议流程直接执行。因此，置信度和审批面板适合降低人工审查负担，但不能替代只读智能体、受控 safe-output、最小权限令牌、分支保护和 PR 审查。
+
+English: GitHub Issues agent actions can now carry confidence, rationale, and suggestions that a human may accept or decline for labels, fields, issue type, closure, and assignments. The critical boundary is explicit: GitHub states that these approvals are workflow conveniences, not server-side security controls, and an agent with write permission can still apply changes directly. Confidence and suggestion review can reduce triage effort, but cannot replace read-only agents, controlled safe outputs, least-privilege tokens, branch protection, and pull-request review.
+
+Recommended action / 建议：当前不启用新的自动写 Issue 能力。若未来把心跳迁移到 GitHub Agentic Workflows，可对低置信度操作使用建议模式并记录理由，但必须继续依赖权限隔离和 safe-output 作为真正安全边界；任何代码或 DWSIM 模型变化仍通过分支、验证和人工可审查 PR。
