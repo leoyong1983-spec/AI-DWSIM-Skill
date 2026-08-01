@@ -40,3 +40,14 @@ English: CASE note warranted. No code, README, SKILL, dependency, or CI change i
 English: Codex 0.145.0 fixes slow or conflicting MCP startup and authentication through startup timeouts, non-blocking OAuth discovery, serialized credential refreshes, and safe tool-catalog reuse. It also improves Windows native exec-server sandboxing, network-proxy enforcement, hidden helper consoles, and hook-command quoting, while strengthening destructive-command detection, full-access confirmation, and approval-rejection provenance. These changes reduce hangs, visible helper-window interference, and permission ambiguity when this project's heartbeat invokes MCP tools, validates on Windows, or prepares remote repository updates.
 
 Recommended action / 建议：记录并优先使用稳定版，不跟随 0.146.0 alpha 预发布。无需修改 DWSIM 控制逻辑或增加依赖；维护脚本继续保留明确超时、最小权限、可审计审批原因和 PowerShell 验证入口。DWSIM 运行成功仍必须由真实 DWSIM 环境及原生计算结果证明。
+
+## 2026-08-02 Codex 0.146.0 Stable Update / 稳定版补充
+
+- OpenAI Codex 0.146.0: https://github.com/openai/codex/releases/tag/rust-v0.146.0
+- Evidence grade / 证据等级：B+。OpenAI 官方稳定版，可直接支持维护运行时判断；但不属于 DWSIM 原生计算验证。
+
+中文：0.146.0 扩大了代理设置在认证、插件下载、MCP 认证、远程执行、WebSocket、重定向和 LM Studio 等路径中的一致覆盖，并可在认证或配置变化后安全刷新 MCP 连接与工具。该版本还修复 Windows 导航、进程树终止和代理保持问题，并注册 MCP 2026-07-28 功能开关。这些变化能降低受代理约束的 Windows 心跳在联网、MCP 重连和子进程清理时的失败概率。
+
+English: Codex 0.146.0 applies proxy settings more consistently across authentication, plugin downloads, MCP authentication, remote execution, WebSockets, redirects, and LM Studio, and safely refreshes MCP connections and tools after authentication or configuration changes. It also fixes Windows navigation, process-tree termination, and proxy preservation, and registers a feature flag for MCP 2026-07-28. These changes reduce failures during network access, MCP reconnection, and child-process cleanup in proxy-constrained Windows maintenance runs.
+
+Recommended action / 建议：记录并在维护环境升级前完成一次代理、MCP 重连和 PowerShell 校验冒烟测试；不将 Codex 或 MCP 作为技能安装依赖，不修改 DWSIM 控制逻辑。真实流程模拟结论仍必须由 DWSIM 原生运行和可审计结果证明。

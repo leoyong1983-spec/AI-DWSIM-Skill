@@ -58,3 +58,14 @@ Recommended action / 建议：记录但不安装 gh-aw，不把容器扫描工�
 English: GitHub Issues agent actions can now carry confidence, rationale, and suggestions that a human may accept or decline for labels, fields, issue type, closure, and assignments. The critical boundary is explicit: GitHub states that these approvals are workflow conveniences, not server-side security controls, and an agent with write permission can still apply changes directly. Confidence and suggestion review can reduce triage effort, but cannot replace read-only agents, controlled safe outputs, least-privilege tokens, branch protection, and pull-request review.
 
 Recommended action / 建议：当前不启用新的自动写 Issue 能力。若未来把心跳迁移到 GitHub Agentic Workflows，可对低置信度操作使用建议模式并记录理由，但必须继续依赖权限隔离和 safe-output 作为真正安全边界；任何代码或 DWSIM 模型变化仍通过分支、验证和人工可审查 PR。
+
+## 2026-08-02 GitHub Agentic Workflows 0.83.4 / 稳定版补充
+
+- Official release / 官方发布：https://github.com/github/gh-aw/releases/tag/v0.83.4
+- Evidence grade / 证据等级：B+。GitHub 官方稳定版，可支持自动维护安全设计；属于 DWSIM 项目的相邻基础设施证据。
+
+中文：0.83.4 加强安全输出误用检测，恢复单目标 `dispatch_workflow` 的向后兼容，修复动态 safe-output 配置传入 MCP 容器、权限条件保护和 CI 可靠性问题，并更新固定的 AWF/MCP Gateway 组件。它说明自动写仓库的安全边界不仅依赖提示词，还依赖编译期字段校验、配置传递、兼容性测试和固定组件版本。
+
+English: Version 0.83.4 improves detection of safe-output misuse, restores backward compatibility for single-target `dispatch_workflow`, fixes propagation of dynamic safe-output configuration into MCP containers, preserves activation guards, improves CI reliability, and refreshes pinned AWF/MCP Gateway components. It reinforces that repository-write safety depends not only on prompts but also on compile-time field validation, configuration propagation, compatibility tests, and pinned component versions.
+
+Recommended action / 建议：继续保持现有分支、验证、提交、推送和 PR 审查链路；当前不安装 gh-aw。若未来迁移托管心跳，应固定稳定版本，并把 safe-output 误用、单目标 dispatch 回归、权限条件和 MCP 配置传递纳入最小测试矩阵。

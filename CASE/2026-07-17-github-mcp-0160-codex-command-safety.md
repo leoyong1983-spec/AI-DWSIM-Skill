@@ -38,3 +38,16 @@ English: A documentation-only update is warranted: add this CASE note, with no c
 English: Version 1.7.0 adds GitHub App server-to-server authentication over stdio, centralizes lockdown author checks, and marks label_write with a destructive-operation hint. It also includes SDK changes targeting the MCP 2026-07-28 specification. For unattended maintenance, short-lived GitHub App installation tokens are a safer future path than long-lived personal access tokens, while destructive hints and centralized lockdown checks reduce accidental writes.
 
 Recommended action / 建议：当前继续使用已验证的 gh 认证与最小权限分支/PR 流程，不新增 MCP 运行依赖。未来若心跳迁移到 GitHub MCP，应优先评估 GitHub App 认证、固定稳定版本、限制可写工具集，并要求分支、CI 和人工可审查 PR。MCP 规范兼容声明不能替代真实 DWSIM 计算验证。
+
+## 2026-08-02 GitHub MCP Server 1.8.0 and MCP 2026-07-28 / 稳定版与规范补充
+
+- GitHub MCP Server 1.8.0: https://github.com/github/github-mcp-server/releases/tag/v1.8.0
+- MCP specification changelog: https://modelcontextprotocol.io/specification/2026-07-28/changelog
+- MCP version negotiation: https://modelcontextprotocol.io/specification/2026-07-28/basic/versioning
+- Evidence grade / 证据等级：B+。GitHub 官方稳定版和 MCP 官方规范，可直接支持维护接口设计；不属于 DWSIM 原生运行证据。
+
+中文：GitHub MCP Server 1.8.0 新增 `fields` 参数，可只返回任务所需字段以减少上下文消耗，并支持批量更新 project items。同期 MCP 2026-07-28 是明显的协议代际变化：转向无状态请求，移除初始化握手和协议级会话标识，要求请求通过 `_meta` 携带版本与能力，并引入 `server/discover`、`subscriptions/listen` 和多轮请求结果。现有客户端与服务器不能仅凭“支持 MCP”就假定兼容。
+
+English: GitHub MCP Server 1.8.0 adds a `fields` parameter so clients can request only the response fields needed, reducing context usage, and supports batched project-item updates. MCP 2026-07-28 is a material protocol-generation change: it moves to stateless requests, removes the initialization handshake and protocol-level session identifier, carries version and capabilities in request `_meta`, and introduces `server/discover`, `subscriptions/listen`, and multi-round-trip results. Existing clients and servers must not be assumed compatible merely because both claim MCP support.
+
+Recommended action / 建议：未来接入 DWSIM MCP 时必须记录客户端、服务器和协议版本，并在独立兼容性测试中验证 discovery、能力协商、错误处理和旧版回退；当前只记录 CASE，不增加依赖或修改 Automation3 路径。GitHub 维护调用应优先请求最小字段集，批量写入仍保持分支、最小权限和人工可审查 PR。
