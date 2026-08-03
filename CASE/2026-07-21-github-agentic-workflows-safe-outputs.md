@@ -69,3 +69,15 @@ Recommended action / 建议：当前不启用新的自动写 Issue 能力。若�
 English: Version 0.83.4 improves detection of safe-output misuse, restores backward compatibility for single-target `dispatch_workflow`, fixes propagation of dynamic safe-output configuration into MCP containers, preserves activation guards, improves CI reliability, and refreshes pinned AWF/MCP Gateway components. It reinforces that repository-write safety depends not only on prompts but also on compile-time field validation, configuration propagation, compatibility tests, and pinned component versions.
 
 Recommended action / 建议：继续保持现有分支、验证、提交、推送和 PR 审查链路；当前不安装 gh-aw。若未来迁移托管心跳，应固定稳定版本，并把 safe-output 误用、单目标 dispatch 回归、权限条件和 MCP 配置传递纳入最小测试矩阵。
+
+## 2026-08-04 GitHub Agentic Workflows 0.84.3 / 稳定版补充
+
+- Official release / 官方发布：https://github.com/github/gh-aw/releases/tag/v0.84.3
+- Release and versioning guidance / 发布与版本说明：https://github.github.com/gh-aw/reference/releases/
+- Evidence grade / 证据等级：B+。GitHub 官方稳定版及官方版本说明，可支持自动维护安全设计；属于 DWSIM 项目的相邻基础设施证据。
+
+中文：0.84.3 提供面向工作流 `run` 步骤的 ShellCheck 校验路径，并增加 `jobs.agent.needs`、`jobs.agent.if` 和受 `allowed-refs` 约束的 `dispatch_workflow ref`，使智能体任务可按前置结果、条件和允许分支精确门控。该版本还移除或禁用多个存在未解决严重 CVE 的容器镜像，修复 MCP 环境秘密转义、safe-output 处理、工作区权限和 CI 可靠性问题，并加入每日 arXiv 研究工作流作为自动技术雷达示例。
+
+English: Version 0.84.3 provides a ShellCheck validation path for workflow `run` steps and adds `jobs.agent.needs`, `jobs.agent.if`, and an `allowed-refs`-constrained `dispatch_workflow ref`, allowing agent jobs to be gated by prerequisites, conditions, and approved branches. It also removes or disables several container images with unresolved critical or high CVEs, fixes MCP environment-secret escaping, safe-output handling, workspace permissions, and CI reliability, and adds a daily arXiv research workflow as an example of an automated technology radar.
+
+Recommended action / 建议：当前不安装 gh-aw，也不复制其容器或研究工作流。继续保留现有“检索、价值判断、CASE、验证、分支和 PR”链路；若未来迁移托管心跳，应在独立 PR 中固定稳定版本，启用 ShellCheck，限制 dispatch refs，使用 `needs`/`if` 门控写操作，并将容器 CVE、秘密转义和 safe-output 回归纳入验收。以上改进不能替代真实 DWSIM 原生计算验证。
