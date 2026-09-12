@@ -29,6 +29,12 @@ Read [references/agentic-optimization-and-mcp.md](references/agentic-optimizatio
 
 ## Workflow
 
+### Executable starting point
+
+When no project runner exists, use [scripts/run_dwsim.ps1](scripts/run_dwsim.ps1) for a Windows Automation3 smoke test or recalculation of a self-contained model. Read [references/runtime-validation.md](references/runtime-validation.md) for commands, evidence fields, and limitations. The script creates a water-mixer demonstration when no model is supplied, or copies and recalculates the supplied model. It saves, reloads, recalculates, and exports JSON/CSV before reporting success.
+
+The water mixer proves the environment and execution path only. For a project-specific modeling review, build the smallest model that represents the requested process and mark missing engineering inputs or provisional assumptions explicitly. Do not present this demonstration as validation of the user's process. If the runtime itself is unavailable, report the actual blocker and any prepared model/script separately from executed results.
+
 ### 1. Gate the execution path
 
 Decide the path in this order:
@@ -39,7 +45,7 @@ Decide the path in this order:
 4. If only COM works, use COM carefully and log that the lane is legacy or weaker than direct `.NET`.
 5. Do not default to GUI clicking for production work.
 
-Treat `Automation3` as the authoritative baseline lane because it exposes `CreateFlowsheet`, `LoadFlowsheet`, `CalculateFlowsheet2`, and `SaveFlowsheet` directly.
+Treat `Automation3` as the authoritative baseline lane. Verify the installed method signatures: in DWSIM 9.0.5, the public `CalculateFlowsheet2` returns `void`, whereas `CalculateFlowsheet4` returns solver exceptions. Use an error-returning method plus the model's `Solved` state and output checks. A call returning without an exception is not sufficient evidence of convergence.
 
 Treat `dwsimopt`-style wrappers as an accelerator layer, not as the primary truth source, because they can simplify Python control but also add environment constraints such as Python version and `pythonnet` compatibility.
 
@@ -55,7 +61,7 @@ Always check:
 2. DWSIM version
 3. Resolved `DWSIM.Automation.dll` path
 4. Whether direct `.NET` loading works
-5. Whether COM is registered
+5. Whether COM is registered, only if the chosen lane requires COM
 6. Whether existing model files, workcopies, audits, status files, and package exports already exist
 
 When using `Automation3`, log the version reported by `GetVersion()` when the method is available. Do not hard-code one DWSIM major version into runners or handoff instructions.

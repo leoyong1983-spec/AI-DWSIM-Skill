@@ -7,6 +7,10 @@
 
 An AI-driven DWSIM automation and basic process package toolkit.
 
+面向真实 DWSIM 执行的技能：优先使用已有模型；无模型时建立最小模型，并留下可复核的计算证据。仓库现提供可运行的水混合器示例及已有模型重算入口，详见[中英双语使用说明](references/runtime-validation.md)。
+
+An executable water-mixer example and an existing-model recalculation entry point are included. See the [bilingual runtime guide](references/runtime-validation.md) for commands and validation boundaries.
+
 This repository packages a reusable skill and workflow for engineers who want to let an AI agent take over DWSIM in a controlled, auditable, script-first way.
 
 It is designed for real execution, not just documentation. The workflow covers:
@@ -90,8 +94,13 @@ AI-DWSIM-Skill/
 |   |-- authority-and-path-selection.md
 |   |-- agentic-optimization-and-mcp.md
 |   |-- basic-package-deliverables.md
+|   |-- runtime-validation.md
 |   `-- project-lessons.md
 |-- scripts/
+|   |-- run_dwsim.ps1
+|   |-- dwsim_runner.cs
+|   |-- test_runner.ps1
+|   |-- tests/
 |   |-- validate_repo.ps1
 |   `-- validate_repo.py
 `-- .github/
@@ -127,7 +136,9 @@ cd AI-DWSIM-Skill
 
 ### 2. Install it as a Codex skill
 
-Copy the runtime skill files into a Codex skill folder named `ai-dwsim-basic-package`.
+Copy the runtime skill files into a Codex skill folder named `ai-dwsim-basic-package`. Include both runner files so the installed skill can execute the documented commands.
+
+安装时同时复制下面两个执行文件，避免技能装好后缺少运行入口。
 
 ```powershell
 $source = Get-Location
@@ -135,13 +146,17 @@ $target = "$env:USERPROFILE\\.codex\\skills\\ai-dwsim-basic-package"
 New-Item -ItemType Directory -Force $target | Out-Null
 Copy-Item `
   "$source\\README.md", `
+  "$source\\LICENSE", `
   "$source\\SKILL.md", `
   "$source\\agents", `
   "$source\\references" `
   -Destination $target -Recurse -Force
+New-Item -ItemType Directory -Force "$target\\scripts" | Out-Null
+Copy-Item "$source\\scripts\\run_dwsim.ps1", "$source\\scripts\\dwsim_runner.cs" `
+  -Destination "$target\\scripts" -Force
 ```
 
-Keep the full repository clone around if you also want the repository maintenance scaffolding such as `AGENTS.md`, local validation scripts, or GitHub workflow files.
+Keep the full repository clone for repository maintenance: `AGENTS.md`, validation/test scripts, and GitHub workflows. Run repository validation in that clone, not in the minimal installed skill.
 
 ### 3. Use it in a real DWSIM task
 
@@ -161,7 +176,7 @@ Use ai-dwsim-basic-package to freeze the accepted case as a review-stage baselin
 
 ### Option A: Use it as a Codex skill
 
-Copy this repository into your Codex skills directory under the folder name `ai-dwsim-basic-package`.
+Use the runtime-only copy command in step 2 above. Keep collected CASE data and local work artifacts outside the installed skill.
 
 Typical local path:
 
@@ -204,7 +219,18 @@ Run the local validation entry point after repository-facing changes:
 .\scripts\validate_repo.ps1
 ```
 
-The PowerShell wrapper prefers a real Python installation behind `py` or `python` and fails with a clear message if neither is available.
+The PowerShell wrapper prefers `py -3.12`, warns when falling back to another available Python, and fails with a clear message if no usable interpreter is available.
+
+Run the regression checks from the full clone:
+
+```powershell
+py -3.12 -B -m unittest discover -s scripts/tests -p "test_*.py" -v
+.\scripts\test_runner.ps1 -OutputDirectory '.\AGENTCODING\05_qa\runner-gates-01'
+```
+
+仓库检查与 CI 不需要 DWSIM；`test_runner.ps1` 使用测试替身验证失败判定。真实模拟需执行[运行指南](references/runtime-validation.md)中的 `run_dwsim.ps1`，两种验证不可混淆。
+
+Repository checks and CI do not require DWSIM. `test_runner.ps1` uses fake objects to exercise failure gates; actual simulation evidence comes from `run_dwsim.ps1` as documented in the [runtime guide](references/runtime-validation.md).
 
 ## Typical Workflow
 
