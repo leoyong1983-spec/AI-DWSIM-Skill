@@ -16,7 +16,10 @@ permissions:
 
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Check out repository
@@ -29,3 +32,15 @@ jobs:
 
       - name: Run repository smoke checks
         run: python scripts/validate_repo.py
+
+      - name: Run validation regression tests
+        run: python -B -m unittest discover -s scripts/tests -p "test_*.py" -v
+
+      - name: Verify Windows entry point and runner evidence gates
+        if: runner.os == 'Windows'
+        shell: powershell
+        run: |
+          & .\scripts\validate_repo.ps1
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & .\scripts\test_runner.ps1 -OutputDirectory "$env:RUNNER_TEMP\dwsim-runner-checks"
+          exit $LASTEXITCODE

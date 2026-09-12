@@ -22,6 +22,8 @@ REQUIRED_FILES = [
     "references/authority-and-path-selection.md",
     "references/basic-package-deliverables.md",
     "references/project-lessons.md",
+    "references/agentic-optimization-and-mcp.md",
+    "references/runtime-validation.md",
     ".github/dependabot.yml",
     ".github/pull_request_template.md",
     ".github/ISSUE_TEMPLATE/bug_report.yml",
@@ -30,19 +32,19 @@ REQUIRED_FILES = [
     ".github/workflows/repo-hygiene.yml",
     "scripts/validate_repo.ps1",
     "scripts/validate_repo.py",
+    "scripts/run_dwsim.ps1",
+    "scripts/dwsim_runner.cs",
+    "scripts/test_runner.ps1",
+    "scripts/tests/runner_checks.cs",
+    "scripts/tests/test_validate_repo.py",
+    "scripts/tests/test_run_dwsim.py",
+    "scripts/tests/launcher_fixture.cs",
 ]
 
-MARKDOWN_FILES = [
-    "README.md",
-    "SKILL.md",
-    "AGENTS.md",
-    "CONTRIBUTING.md",
-    "SECURITY.md",
-    "GITHUB_REPO_SETTINGS.md",
-    "references/authority-and-path-selection.md",
-    "references/basic-package-deliverables.md",
-    "references/project-lessons.md",
-]
+def required_paths() -> list[str]:
+    # Include future reference documents without scanning collected/private CASE assets.
+    references = [path.relative_to(ROOT).as_posix() for path in (ROOT / "references").rglob("*.md")]
+    return sorted(set(REQUIRED_FILES + references))
 
 
 def read_text(path: Path) -> str:
@@ -50,15 +52,15 @@ def read_text(path: Path) -> str:
 
 
 def check_required_files(errors: list[str]) -> None:
-    for relative_path in REQUIRED_FILES:
+    for relative_path in required_paths():
         path = ROOT / relative_path
-        if not path.exists():
+        if not path.is_file():
             errors.append(f"Missing required file: {relative_path}")
 
 
 def check_utf8_readability(errors: list[str]) -> dict[Path, str]:
     texts: dict[Path, str] = {}
-    for relative_path in REQUIRED_FILES:
+    for relative_path in required_paths():
         path = ROOT / relative_path
         if not path.is_file():
             continue
@@ -125,12 +127,9 @@ def main() -> int:
     check_required_files(errors)
     texts = check_utf8_readability(errors)
 
-    for relative_path in MARKDOWN_FILES:
-        path = ROOT / relative_path
-        text = texts.get(path)
-        if text is None:
-            continue
-        check_markdown_links(path, text, errors)
+    for path, text in texts.items():
+        if path.suffix.lower() == ".md":
+            check_markdown_links(path, text, errors)
 
     skill_text = texts.get(ROOT / "SKILL.md")
     if skill_text is not None:

@@ -4,6 +4,7 @@ desktop.ini
 
 .idea/
 .vscode/
+AGENTCODING/
 __pycache__/
 *.pyc
 *.pyo
